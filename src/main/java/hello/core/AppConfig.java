@@ -14,7 +14,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+@Configuration //스프링 설정 정보는 항상 @Configuration 사용해야 싱글톤 보장 됨
 public class AppConfig {
     //AppConfig는 구체 클래스 선택함(구현 객체 생성, 연결하는  책임)
     /**
@@ -26,18 +26,21 @@ public class AppConfig {
 
     @Bean
     public MemberService memberService(){
+        System.out.println("call AppConfig.memberService");
 //        return new MemberServiceImpl(new MemoryMemberRepository());
         return new MemberServiceImpl(memberRepository());
     }
 
     @Bean
     public OrderService orderService(){
+        System.out.println("call AppConfig.orderService");
 //        return new OrderServiceImpl(new MemoryMemberRepository(),new FixDiscountPolicy());
         return new OrderServiceImpl(memberRepository(),discountPolicy());
     }
 
     @Bean
     public MemberRepository memberRepository(){
+        System.out.println("call AppConfig.memberRepository");
         return new MemoryMemberRepository();
     }
 
